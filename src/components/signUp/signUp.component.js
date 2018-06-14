@@ -45,6 +45,7 @@ class SignUp extends Component {
       storedUsers.push(credentials);
       localStorage.setItem("users", JSON.stringify(storedUsers));
     }
+    this.setState({ redirect: true});
   }
 
   render() {
@@ -90,7 +91,7 @@ class SignUp extends Component {
               <ControlLabel>Already have an account? <Link to={'/login'}>Log In.</Link></ControlLabel>
             </FormGroup>
             <FormGroup>
-                <Button type="submit" onClick={ this.signUp }>Sign Up</Button>
+                <Button onClick={ this.signUp }>Sign Up</Button>
             </FormGroup>
           </Form>
         </div>
