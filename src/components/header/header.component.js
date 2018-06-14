@@ -7,7 +7,7 @@ import SignUp from '../signUp/signUp.component';
 import Reports from '../reports/reports.component';
 import NewReport from '../newReport/newReport.component';
 
-const navbarStyle = { textAlign: 'left' };
+const navbarStyle = { textAlign: 'left', zIndex: '2' };
 
 class Header extends Component {
 
