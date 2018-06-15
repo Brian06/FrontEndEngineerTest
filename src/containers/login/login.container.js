@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, Col, Button, Form } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
+import { setLoggedUser } from '../../actions/index.actions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 const loginStyle = { width: '100%', margin: 'auto', position: 'fixed', top: '20%'};
 
@@ -40,6 +43,7 @@ class Login extends Component {
       storedUsers.forEach((user) => {
         if (user.email === email && user.password === password) {
           this.setState({ redirect: true });
+          this.props.setLoggedUser(user.email);
           return;
         }
       });
@@ -101,4 +105,15 @@ class Login extends Component {
 
 }
 
-export default Login;
+function mapStateToProps(state) {
+  return {
+    loggedUser: state.loggedUser,
+    isUserLogged: state.isUserLogged
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ setLoggedUser:setLoggedUser }, dispatch);
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Login);

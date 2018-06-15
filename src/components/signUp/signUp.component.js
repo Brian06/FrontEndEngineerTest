@@ -34,8 +34,7 @@ class SignUp extends Component {
   }
 
   signUp() {
-    const { email, password } = this.state;
-    const credentials = { email: email, password: password };
+    const credentials = { email: this.state.email, password: this.state.password };
     let storedUsers = JSON.parse(localStorage.getItem("users"));
     if (storedUsers) {
       storedUsers.push(credentials);
