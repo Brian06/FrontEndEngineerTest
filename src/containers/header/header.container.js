@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { logout } from '../../actions/index.actions';
 import Login from '../login/login.container';
 import SignUp from '../../components/signUp/signUp.component';
-import Reports from '../../components/reports/reports.component';
+import Reports from '../../containers/reports/reports.component';
 import NewReport from '../../components/newReport/newReport.component';
 
 const navbarStyle = { textAlign: 'left', zIndex: '2' };
