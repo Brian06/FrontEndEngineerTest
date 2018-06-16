@@ -26,9 +26,10 @@ class NewReport extends Component {
 
   search() {
     const email = this.state.email;
-    axios.get(`https://www.beenverified.com/hk/dd/email?email=${email}&exporttype=jsonp`)
+    axios.get(`http://localhost:5000/api/v1/get-report/${email}`)
     .then(response => {
       let data = response.data;
+      console.log(data);
       //this.setState({ projects:data, loading: false });
     })
     .catch(error => {
