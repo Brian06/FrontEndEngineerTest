@@ -56,7 +56,7 @@ class NewReport extends Component {
           <Button onClick={ this.search }>Search Report</Button>
         </Form>
         <div className="container" style={{ maxWidth:'460', textAlign:'center', marginTop:'30px' }}>
-          <ReportDetailed report={ this.state.report }></ReportDetailed>
+          <ReportDetailed report={ this.state.report } saveButton={ true }></ReportDetailed>
         </div>
       </div>
     )

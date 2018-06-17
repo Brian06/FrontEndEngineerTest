@@ -72,38 +72,54 @@ class reportDetailed extends Component {
       return null;
     }
 
-    const names = report.names.map((name) =>
-      <ListGroupItem key={name}>{ name }</ListGroupItem>
-    );
+    let names = [];
+    let emails = [];
+    let jobs = [];
+    let socials = [];
+    if (report.names) {
+      names = report.names.map((name) =>
+        <ListGroupItem key={name}>{ name }</ListGroupItem>
+      );
+    }
+    
+    if (report.emails) {
+      emails = report.emails.map((email) =>
+        <ListGroupItem key={email}>{ email }</ListGroupItem>
+      );
+    }
 
-    const emails = report.emails.map((email) =>
-      <ListGroupItem key={email}>{ email }</ListGroupItem>
-    );
+    if (report.jobs) {
+      jobs = report.jobs.map((job) =>
+        job.title ? (
+          <ListGroupItem key={job.title}>
+            <span style={{ fontWeight: 'bold' }}>
+              { job.company }
+            </span><br/> 
+            as { job.title }
+          </ListGroupItem>
+        ) : (
+          <ListGroupItem key={job.title}>
+            <span style={{ fontWeight: 'bold' }}>
+              { job.company }
+            </span>
+          </ListGroupItem>
+        )
+      );
+    }
 
-    const jobs = report.jobs.map((job) =>
-      job.title ? (
-        <ListGroupItem key={job.title}>
-          <span style={{ fontWeight: 'bold' }}>
-            { job.company }
-          </span><br/> 
-          as { job.title }
-        </ListGroupItem>
-      ) : (
-        <ListGroupItem key={job.title}>
-          <span style={{ fontWeight: 'bold' }}>
-            { job.company }
-          </span>
-        </ListGroupItem>
-      )
-    );
+    if (report.socials) {
+      socials = report.socials.map((social,index) =>
+        social.type ? (
+          <ListGroupItem key={index}>
+            <a href={ social.url }>{ social.type }</a> 
+          </ListGroupItem>
+        ) : null
+      );
+    }
 
-    const socials = report.socials.map((social) =>
-      social.type ? (
-        <ListGroupItem key={social.url}>
-          <a href={ social.url }>{ social.type }</a> 
-        </ListGroupItem>
-      ) : null
-    );
+    const saveButton = this.props.saveButton ? (
+      <Button onClick={ this.saveReport }>Save this Report</Button>
+    ) : null;
 
     let modalHeader = this.state.error ? 'Error!' : 'Success';
     let modalBody = this.state.error ? 'There is already a report saved for this email' : 'Great!, Report saved successfully!';
@@ -124,7 +140,6 @@ class reportDetailed extends Component {
     return (
       <Jumbotron style={{ paddingTop: '0px' }}>
         { modal }
-        <h3 style={{ marginBottom:'30px' }}>{ emails[0] }</h3>
         <Tabs
           activeKey={this.state.key}
           onSelect={this.handleSelect}
@@ -153,7 +168,7 @@ class reportDetailed extends Component {
           </Tab>
         </Tabs>
         <div>
-          <Button onClick={ this.saveReport }>Save this Report</Button>
+          { saveButton }
         </div>
       </Jumbotron>
     )
