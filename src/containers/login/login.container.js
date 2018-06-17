@@ -95,7 +95,7 @@ class Login extends Component {
               <ControlLabel>Don't have an account? <Link to={'/sign-up'}>Sign Up.</Link></ControlLabel>
             </FormGroup>
             <FormGroup>
-                <Button onClick={ this.logIn }>Login</Button>
+                <Button bsStyle="primary" onClick={ this.logIn }>Login</Button>
             </FormGroup>
           </Form>
         </div>

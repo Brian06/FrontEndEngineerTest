@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Tab, Tabs, ListGroup, ListGroupItem, Jumbotron, Button, Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
+const modalStyle = { marginTop: '100px' };
+
 class reportDetailed extends Component {
   constructor(props) {
     super(props);
@@ -45,7 +47,6 @@ class reportDetailed extends Component {
         }
       });
       if (existReport) {
-        console.log('repetido')
         this.setState({ show:true, error:true });
       } else {
         storedReports.push(reportToSave);
@@ -67,15 +68,17 @@ class reportDetailed extends Component {
   render() {
 
     const { report } = this.props;
-
-    if (!report) {
-      return null;
-    }
-
     let names = [];
     let emails = [];
     let jobs = [];
     let socials = [];
+    let modalHeader = this.state.error ? 'Error!' : 'Success';
+    let modalBody = this.state.error ? 'There is already a report saved for this email' : 'Great!, Report saved successfully!';
+    
+    if (!report) {
+      return null;
+    }
+
     if (report.names) {
       names = report.names.map((name) =>
         <ListGroupItem key={name}>{ name }</ListGroupItem>
@@ -118,13 +121,11 @@ class reportDetailed extends Component {
     }
 
     const saveButton = this.props.saveButton ? (
-      <Button onClick={ this.saveReport }>Save this Report</Button>
+      <Button bsStyle="primary" onClick={ this.saveReport }>Save this Report</Button>
     ) : null;
 
-    let modalHeader = this.state.error ? 'Error!' : 'Success';
-    let modalBody = this.state.error ? 'There is already a report saved for this email' : 'Great!, Report saved successfully!';
     const modal = (
-      <Modal className="modal modal-center" show={this.state.show} onHide={this.handleClose} animation>
+      <Modal style={ modalStyle } show={this.state.show} onHide={this.handleClose} animation>
       <Modal.Header closeButton>
         <Modal.Title>{ modalHeader }</Modal.Title>
       </Modal.Header>

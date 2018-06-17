@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { FormGroup, ControlLabel, FormControl, Col, Button, Form } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, Col, Button, Form, Modal } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 
 const loginStyle = { width: '100%', margin: 'auto', position: 'fixed', top: '20%'};
-
+const modalStyle = { marginTop: '100px' };
 const containerStyle = { textAlign:'center', position: 'relative', margin: '0 auto 100px', maxWidth:'400px',
 padding: '10px 35px 35px', boxShadow: '0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24)', zIndex: '1' };
 
@@ -16,11 +16,13 @@ class SignUp extends Component {
     this.state = {
       email: '',
       password: '',
-      redirect: false
+      redirect: false,
+      show: false
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);   
     this.signUp = this.signUp.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   handleInputChange(event) {
@@ -33,18 +35,34 @@ class SignUp extends Component {
     });
   }
 
+  handleClose() {
+    this.setState({ show: false });
+  }
+
   signUp() {
-    const credentials = { email: this.state.email, password: this.state.password };
+    let credentials = { email: this.state.email, password: this.state.password };
     let storedUsers = JSON.parse(localStorage.getItem("users"));
+    let existUser = false; 
     if (storedUsers) {
-      storedUsers.push(credentials);
-      localStorage.setItem("users", JSON.stringify(storedUsers));
+      storedUsers.forEach(storedUser => {
+        if (storedUser.email === this.state.email) {
+          existUser = true;
+        }
+      });
+      if (existUser) {
+        this.setState({ show:true })
+      } else {
+        storedUsers.push(credentials);
+        localStorage.setItem("users", JSON.stringify(storedUsers));
+        this.setState({ redirect: true});
+      }
     } else {
       storedUsers = [];
       storedUsers.push(credentials);
       localStorage.setItem("users", JSON.stringify(storedUsers));
+      this.setState({ redirect: true});
     }
-    this.setState({ redirect: true});
+    
   }
 
   render() {
@@ -53,8 +71,23 @@ class SignUp extends Component {
       return <Redirect to="/login" />;
     }
 
+    const modal = (
+      <Modal style={ modalStyle } show={this.state.show} onHide={this.handleClose} animation>
+      <Modal.Header closeButton>
+        <Modal.Title>Error!</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        There is already a user with this email!
+      </Modal.Body>
+      <Modal.Footer>
+        <Button bsStyle="primary" onClick={this.handleClose}>Close</Button>
+      </Modal.Footer>
+      </Modal>
+    )
+
     return (
       <div style={loginStyle}>
+      { modal }
         <div style={containerStyle}>
           <div style={titleStyle}><h3>Sign Up its free</h3></div>
           <Form horizontal>
@@ -90,7 +123,7 @@ class SignUp extends Component {
               <ControlLabel>Already have an account? <Link to={'/login'}>Log In.</Link></ControlLabel>
             </FormGroup>
             <FormGroup>
-                <Button onClick={ this.signUp }>Sign Up</Button>
+                <Button bsStyle="primary" onClick={ this.signUp }>Sign Up</Button>
             </FormGroup>
           </Form>
         </div>

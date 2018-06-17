@@ -48,13 +48,14 @@ class Reports extends Component {
       );
     }
     
-
     return (
       <div>
         <h3>Reports</h3>
-        <PanelGroup accordion id="accordion-example">
-          { panels }
-        </PanelGroup>
+        <div className="container" style={{ maxWidth:'460', textAlign:'center', marginTop:'30px' }}>
+          <PanelGroup accordion id="accordion-example">
+            { panels }
+          </PanelGroup>
+        </div>
       </div>
     )
   }
