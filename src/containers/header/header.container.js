@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Redirect, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import { Nav, Navbar, NavItem } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { connect } from 'react-redux';
@@ -8,7 +8,7 @@ import { logout } from '../../actions/index.actions';
 import Login from '../login/login.container';
 import SignUp from '../../components/signUp/signUp.component';
 import Reports from '../../containers/reports/reports.component';
-import NewReport from '../../components/newReport/newReport.component';
+import NewReport from '../../containers/newReport/newReport.container';
 
 const navbarStyle = { textAlign: 'left', zIndex: '2' };
 

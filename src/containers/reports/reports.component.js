@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Panel, PanelGroup } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom'
 import ReportDetailed from '../reportDetailed/reportDetailed.component';
 
 class Reports extends Component {
@@ -33,7 +34,12 @@ class Reports extends Component {
 
   render() {
 
+    const { isUserLogged } = this.props;
     let panels;
+
+    if (!isUserLogged) {
+      return <Redirect to="/login" />;
+    }
 
     if (this.state.reports.length) {
       panels = this.state.reports.map((report,index) =>

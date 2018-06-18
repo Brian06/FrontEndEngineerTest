@@ -6,11 +6,20 @@ import registerServiceWorker from './registerServiceWorker';
 import reducers from './reducers/index.reducers';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import { loadState, saveState } from './persistState';
 
+const persistState = loadState();
 const createStoreWithMiddleware = applyMiddleware()(createStore);
 
+const store = createStoreWithMiddleware(reducers,persistState);
+
+store.subscribe( () => {
+  saveState(store.getState());
+})
+
+
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
+  <Provider store={store}>
     <App />
   </Provider>  , document.getElementById('root'));
 registerServiceWorker();

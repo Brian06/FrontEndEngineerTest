@@ -3,6 +3,8 @@ import { FormGroup, ControlLabel, FormControl, Button, Form, Modal } from 'react
 import axios from 'axios';
 import ReportDetailed from '../../containers/reportDetailed/reportDetailed.component';
 import ReactLoading from 'react-loading';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom'
 
 const modalStyle = { marginTop: '100px' };
 
@@ -13,7 +15,8 @@ class NewReport extends Component {
       email: '',
       report: null,
       loading: false,
-      show: false
+      show: false,
+      redirect: true
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);   
@@ -50,6 +53,12 @@ class NewReport extends Component {
   
   render() {
 
+    const { isUserLogged } = this.props;
+
+    if (!isUserLogged) {
+      return <Redirect to="/login" />;
+    }
+
     const modal = (
       <Modal style={ modalStyle } show={this.state.show} onHide={this.handleClose} animation>
       <Modal.Header closeButton>
@@ -66,7 +75,7 @@ class NewReport extends Component {
 
     const loadingSpinig = this.state.loading ? (
       <center>
-        <ReactLoading type={'spin'} color={'red'} height={200} width={100} />
+        <ReactLoading type={'spin'} color={'blue'} height={200} width={100} />
       </center>
     ) : null;
 
@@ -97,4 +106,11 @@ class NewReport extends Component {
 
 }
 
-export default NewReport;
+function mapStateToProps(state) {
+  return {
+    loggedUser: state.loggedUser,
+    isUserLogged: state.isUserLogged
+  };
+}
+
+export default connect(mapStateToProps)(NewReport);
