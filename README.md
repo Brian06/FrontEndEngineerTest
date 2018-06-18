@@ -29,7 +29,3 @@ You will need the following things properly installed on your computer.
 * `npm start`
 * `npm run server`
 * Visit your app at [http://localhost:3000](http://localhost:3000).
-
-## Live Demo
-
-[BV Test](https://bv-brian-salazar-test.herokuapp.com/)

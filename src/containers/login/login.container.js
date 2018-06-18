@@ -69,6 +69,10 @@ class Login extends Component {
       return <Redirect to="/reports" />;
     }
 
+    if (this.props.isUserLogged) {
+      return <Redirect to="/reports" />;
+    }
+
     const modal = (
       <Modal style={ modalStyle } show={this.state.show} onHide={this.handleClose} animation>
       <Modal.Header closeButton>
