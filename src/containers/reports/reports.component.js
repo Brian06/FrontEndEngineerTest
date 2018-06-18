@@ -34,7 +34,7 @@ class Reports extends Component {
 
   render() {
 
-    const { isUserLogged } = this.props;
+    let { isUserLogged } = this.props;
     let panels;
 
     if (!isUserLogged) {
@@ -43,24 +43,30 @@ class Reports extends Component {
 
     if (this.state.reports.length) {
       panels = this.state.reports.map((report,index) =>
-        <Panel eventKey={index.toString()}>
+        <Panel key={ index } eventKey={index.toString()}>
           <Panel.Heading>
             <Panel.Title toggle>{ report.emails && report.emails[0] }</Panel.Title>
           </Panel.Heading>
           <Panel.Body collapsible>
-            <ReportDetailed key={ index } report={ report } saveButton={ false }></ReportDetailed>
+            <ReportDetailed report={ report } saveButton={ false }></ReportDetailed>
           </Panel.Body>
         </Panel>
       );
     }
+
+    const reports = this.state.reports.length ? (
+      <PanelGroup accordion id="accordion-example">
+        { panels }
+      </PanelGroup>
+    ) : (
+      <h4>Please Add A Report</h4>
+    )
     
     return (
       <div>
-        <h3>Reports</h3>
+        <h2 style={{ marginBottom:'30px' }}>Reports</h2>
         <div className="container" style={{ maxWidth:'460', textAlign:'center', marginTop:'30px' }}>
-          <PanelGroup accordion id="accordion-example">
-            { panels }
-          </PanelGroup>
+          { reports }
         </div>
       </div>
     )

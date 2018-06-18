@@ -20,7 +20,6 @@ class reportDetailed extends Component {
   }
 
   handleSelect(key) {
-    //alert(`selected ${key}`);
     this.setState({ key });
   }
 
@@ -29,7 +28,7 @@ class reportDetailed extends Component {
   }
 
   setKey() {
-    let key = this.props.report && !this.props.report.names ? 2 : 1;
+    let key = this.props.report && !this.props.report.names ? 1 : 2;
     this.setState({ key: key});
   }
 
@@ -67,7 +66,7 @@ class reportDetailed extends Component {
   
   render() {
 
-    const { report } = this.props;
+    let { report } = this.props;
     let names = [];
     let emails = [];
     let jobs = [];

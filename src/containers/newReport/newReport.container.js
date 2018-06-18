@@ -25,9 +25,9 @@ class NewReport extends Component {
   }
 
   handleInputChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
+    let target = event.target;
+    let value = target.value;
+    let name = target.name;
 
     this.setState({
       [name]: value
@@ -40,7 +40,7 @@ class NewReport extends Component {
 
   search() {
     this.setState({ loading:true });
-    const email = this.state.email;
+    let email = this.state.email;
     axios.get(`http://localhost:5000/api/v1/get-report/${email}`)
     .then(response => {
       let data = response.data;
