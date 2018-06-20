@@ -23,9 +23,15 @@ You will need the following things properly installed on your computer.
 * `git clone <repository-url>` this repository
 * `cd FrontEndEngineerTest`
 * `npm install`
+* `cd client`
+* `npm install`
 
 ## Running / Development
 
+* `cd ..`
 * `npm start`
-* `npm run server`
 * Visit your app at [http://localhost:3000](http://localhost:3000).
+
+## Live Demo
+
+[BV TEST](https://bv-brian-salazar-test.herokuapp.com/).

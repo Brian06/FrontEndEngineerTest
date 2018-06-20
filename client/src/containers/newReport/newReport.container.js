@@ -41,7 +41,7 @@ class NewReport extends Component {
   search() {
     this.setState({ loading:true });
     let email = this.state.email;
-    axios.get(`http://localhost:5000/api/v1/get-report/${email}`)
+    axios.get(`/api/v1/get-report/${email}`)
     .then(response => {
       let data = response.data;
       this.setState({ report:data, loading: false });
@@ -65,7 +65,7 @@ class NewReport extends Component {
         <Modal.Title>Error!</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        You dont have internet access!
+      There Was A Server Error!
       </Modal.Body>
       <Modal.Footer>
         <Button bsStyle="primary" onClick={this.handleClose}>Close</Button>

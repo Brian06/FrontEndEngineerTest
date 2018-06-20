@@ -6,7 +6,11 @@ var serveStatic = require('serve-static');
 
 app = express();
 app.use(bodyParser());
-app.use(serveStatic(__dirname));
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+
 //remove this when deploy,use just on development
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -14,7 +18,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-var port = process.env.PORT || 5000;
+var port = process.env.PORT || 3001;
 require('./server/routes')(app);
 app.listen(port);
 console.log('server started '+ port);
