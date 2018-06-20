@@ -41,7 +41,7 @@ class NewReport extends Component {
   search() {
     this.setState({ loading:true });
     let email = this.state.email;
-    axios.get(`http://localhost:5000/api/v1/get-report/${email}`)
+    axios.get(`/api/v1/get-report/${email}`)
     .then(response => {
       let data = response.data;
       this.setState({ report:data, loading: false });
