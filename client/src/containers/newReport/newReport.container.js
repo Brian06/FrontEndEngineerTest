@@ -65,7 +65,7 @@ class NewReport extends Component {
         <Modal.Title>Error!</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        You dont have internet access!
+      There Was A Server Error!
       </Modal.Body>
       <Modal.Footer>
         <Button bsStyle="primary" onClick={this.handleClose}>Close</Button>
