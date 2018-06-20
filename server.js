@@ -7,6 +7,7 @@ var serveStatic = require('serve-static');
 app = express();
 app.use(bodyParser());
 app.use(serveStatic(__dirname));
+app.use(express.static(path.join(__dirname, './build')));
 //remove this when deploy,use just on development
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
