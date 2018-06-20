@@ -34,4 +34,4 @@ You will need the following things properly installed on your computer.
 
 ## Live Demo
 
-*[BV TEST](https://bv-brian-salazar-test.herokuapp.com/).
+[BV TEST](https://bv-brian-salazar-test.herokuapp.com/).
